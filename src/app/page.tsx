@@ -1,16 +1,16 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useState } from "react";
-import { sendAnswer } from "./api/actions";
+import { Params, sendAnswer } from "./api/actions";
 
 export default function Home() {
   const [question, setQuestion] = useState("1. 당신의 목표는 무엇인가요?");
   const [answer, setAnswer] = useState('');
-  const [histories, setHistories] = useState<string[]>([]);
+  const [histories, setHistories] = useState<Params[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const sendAnswerHandler = async (answer: string) => {
-    const res = await sendAnswer(answer, histories)
+  const sendAnswerHandler = async () => {
+    const res = await sendAnswer([...histories, {role: 'user', content: answer}])
     return res
   }
 
@@ -18,9 +18,9 @@ export default function Home() {
     e.preventDefault()
     try {
       setLoading(true)
-      const res = await sendAnswerHandler(answer)
-      setQuestion(res.question)
-      setHistories(res.histories)
+      const res = await sendAnswerHandler()
+      setQuestion(res.messages[res.messages.length-1].content ?? '')
+      setHistories(res.messages)
       setAnswer('')
     } catch (e) {
       console.error(e)
@@ -47,9 +47,6 @@ export default function Home() {
           placeholder="여기에 입력해주세요(200자 이내)"
         />
         <button type="submit" className="border rounded px-3">다음</button>
-        {histories.length > 0 && (
-          histories.map((history) => <div key={history}>{history}</div>)
-        )}
       </form>
     </div>
   );
