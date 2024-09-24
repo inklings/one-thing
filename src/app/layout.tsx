@@ -28,7 +28,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <header role="banner" className="h-10 px-4 flex items-center">
+{/* TODO: 로고를 넣거나 다른 문구를 넣으면 좋겠습니다*/}
+          지금 내가 집중해야할 한가지
+        </header>
+        <main className="p-10">
+          {children}
+        </main>
       </body>
     </html>
   );
