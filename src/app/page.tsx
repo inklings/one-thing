@@ -9,7 +9,7 @@ export default function Home() {
   const [histories, setHistories] = useState<Params[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const question = useMemo(() => {
+  const counselorMessage = useMemo(() => {
     if(histories.length === 0){
       return '당신의 목표는 무엇인가요?'
     }
@@ -56,7 +56,8 @@ export default function Home() {
     if(e.key === 'Enter' && e.shiftKey) {
       return
     }
-    if(e.key === 'Enter') {
+    if(e.key === 'Enter' && !loading) {
+      e.preventDefault()
       onNextClick()
       return
     }
@@ -66,16 +67,17 @@ export default function Home() {
     <div className="font-[family-name:var(--font-geist-sans)]">
       {status === 'ready' && (
         <div className="flex flex-col items-center">
-        <p>당신이 하는 일 중 가장 중요한 단 하나, 그게 무엇인지 함께 찾아봐요</p>
+        <p>🤗 당신이 오늘 집중해야 할 한 가지, 그게 무엇인지 함께 찾아봐요! 🙌</p>
         <button className="btn" onClick={onStartClick}>시작하기</button>
       </div>
       )}
       {status === 'inProgress' && (
           <Fragment>
-            <div className="py-4">
-            {loading ? <div className="text-center"><span className="loading loading-dots"></span></div> : `Q. ${question}`}
+            <div className="mt-4 min-h-40">
+            🙂
+            <p className="mt-0 pl-4">{loading ? <span className="loading loading-dots"></span> : `${counselorMessage}`}</p>
             </div>
-            A.
+            {loading ? '😐' : '🤔'}
             <div className="flex items-end gap-x-2">
               <textarea
                 value={answer}
@@ -91,7 +93,7 @@ export default function Home() {
       )}
       {status === 'end' && 
       <div className="flex flex-col items-center">
-        <p>{question}</p>
+        <p>😊 {counselorMessage} 🥳</p>
         <button onClick={onStartClick} className="btn">다시하기</button>
       </div>}
     </div>
