@@ -28,12 +28,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="prose mx-auto max-w-screen-md min-h-screen px-4">
-          <header className="flex justify-between items-center py-4 border-b">
+        <div className="prose mx-auto max-w-screen-md h-screen px-4">
+          <header className="flex justify-between items-center border-b sticky top-0 h-20">
               <h2 className="m-0">지금 내가 집중해야할 한 가지</h2>
               <button className="btn btn-ghost">문의하기</button>
           </header>
-          <main>
+          <main className="h-[calc(100%-80px)]">
             {children}
           </main>
         </div>
