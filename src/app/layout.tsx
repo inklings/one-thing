@@ -28,13 +28,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header role="banner" className="h-10 px-4 flex items-center">
-{/* TODO: 로고를 넣거나 다른 문구를 넣으면 좋겠습니다*/}
-          지금 내가 집중해야할 한가지
-        </header>
-        <main className="p-10">
-          {children}
-        </main>
+        <div className="prose mx-auto max-w-screen-md min-h-screen px-4">
+          <header className="flex justify-between items-center py-4 border-b">
+              <h2 className="m-0">지금 내가 집중해야할 한 가지</h2>
+              <button className="btn btn-ghost">문의하기</button>
+          </header>
+          <main>
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
