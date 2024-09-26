@@ -1,18 +1,18 @@
 "use server";
 
 import { google } from "googleapis";
-import path from "path";
-import { promises as fs } from "fs";
 
 async function getGoogleAuth() {
   try {
-    // 서비스 계정 인증을 위한 키 파일 로드
-    const keyFilePath = path.join(process.cwd(), "google_credentials.json"); // 서비스 계정 키 경로
-    const keyFile = await fs.readFile(keyFilePath, "utf8");
-    const credentials = JSON.parse(keyFile);
-
     const auth = new google.auth.GoogleAuth({
-      credentials,
+      credentials:{
+        type: "service_account",
+        project_id: process.env.PROJECT_ID,
+        private_key_id: process.env.PRIVATE_KEY_ID,
+        private_key: process.env.PRIVATE_KEY,
+        client_email: process.env.CLIENT_EMAIL,
+        client_id: process.env.CLIENT_ID,
+      },
       scopes: "https://www.googleapis.com/auth/spreadsheets",
     });
 
