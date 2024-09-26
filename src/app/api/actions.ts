@@ -6,7 +6,6 @@ const openai = new OpenAI();
 export type Params = {role: 'assistant' | 'user', content: string}
 
 export async function sendAnswer(messages: Params[]) {
-  // TODO: system message 보강하기
   const completion = await openai.chat.completions.create({
     messages: [{ role: "system", content: `You are a goal-oriented chatbot acting as a virtual coach to help users identify their single most important task for today. Your goal is to guide the user through follow-up questions to either clarify a goal they already have or help them discover what they should focus on if they don't have one. After each user input, detect the language and respond in the same language.
 
@@ -24,7 +23,6 @@ Assistant Instructions:
       ...messages],
     model: "gpt-4o-mini",
   });
-  console.log(completion.choices)
   const result: Params[] = [...messages, {role: 'assistant', content: completion.choices[0].message.content ?? ''}]
   
   return {messages: result}
