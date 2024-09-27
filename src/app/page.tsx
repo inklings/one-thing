@@ -111,7 +111,9 @@ export default function Home() {
   };
 
   const scrollToBottom = () => {
-    messageEndRef.current?.scrollIntoView({behavior:'smooth'})
+    if(messageEndRef.current) {
+      messageEndRef.current?.scrollIntoView({behavior:'smooth'})
+    }
   }
 
   useEffect(() => {
@@ -121,7 +123,9 @@ export default function Home() {
   }, [status]); // status가 업데이트될 때마다 호출
 
   useEffect(() => {
+    if(histories.length > 0){
       scrollToBottom()
+    }
   },[histories, loading])
 
   return (
