@@ -35,7 +35,8 @@ export default function Home() {
     return res;
   };
 
-  const onNextClick = async () => {
+  const onNextClick = async (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e?.preventDefault()
     try {
       setLoading(true);
       const res = await sendAnswerHandler();
@@ -156,7 +157,7 @@ export default function Home() {
               onChange={answerChangeHandler}
               onKeyDown={onPressEnter}
               maxLength={200}
-              className="textarea textarea-bordered w-full"
+              className="textarea textarea-bordered w-full text-base"
               placeholder="여기에 입력해주세요(200자 이내)"
             />
             <button onClick={onNextClick} className="btn btn-circle">
