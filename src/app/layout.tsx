@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "One thing",
+  title: "One thing, 오늘 집중해야 할 한 가지",
   description: "오늘 집중해야 할 한 가지를 찾을 수 있도록 도와주는 AI 상담사",
 };
 
