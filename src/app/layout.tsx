@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import InquiryButton from "./components/InquiryButton";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,7 +32,7 @@ export default function RootLayout({
         <div className="prose mx-auto max-w-screen-md h-screen px-4">
           <header className="flex justify-between items-center border-b sticky top-0 h-20 bg-white">
               <h2 className="m-0">지금 내가 집중해야할 한 가지</h2>
-              <button className="btn btn-ghost">문의하기</button>
+              <InquiryButton />
           </header>
           <main className="h-[calc(100%-80px)]">
             {children}
