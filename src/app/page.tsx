@@ -13,7 +13,8 @@ import { Params, sendAnswer } from "./api/actions";
 import { addRow } from "./api/googleSheet";
 
 export default function Home() {
-  const messageEndRef = useRef<HTMLDivElement>(null) 
+  const messageEndRef = useRef<HTMLDivElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null) 
   const [status, setStatus] = useState<"ready" | "inProgress" | "end">("ready");
   const [answer, setAnswer] = useState("");
   const [histories, setHistories] = useState<Params[]>([]);
@@ -37,6 +38,7 @@ export default function Home() {
 
   const onNextClick = async (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e?.preventDefault()
+    textareaRef.current?.focus()
     try {
       setLoading(true);
       const res = await sendAnswerHandler();
@@ -153,6 +155,7 @@ export default function Home() {
           {loading ? "😐" : "🤔"}
           <div className="flex items-end gap-x-2">
             <textarea
+              ref={textareaRef}
               value={answer}
               onChange={answerChangeHandler}
               onKeyDown={onPressEnter}
