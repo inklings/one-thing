@@ -139,6 +139,7 @@ export default function Home() {
           <button className="btn" onClick={onStartClick}>
             시작하기
           </button>
+          <p className="text-neutral-500">*성능 향상을 위해 질문과 답변 내용이 수집됩니다</p>
         </div>
       )}
       {status === "inProgress" && (
