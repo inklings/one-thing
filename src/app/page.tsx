@@ -11,13 +11,14 @@ import {
 } from "react";
 import { Params, sendAnswer } from "./api/actions";
 import { addRow } from "./api/googleSheet";
+import Ready from "./components/ready";
 
 export default function Home() {
   const messageEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null) 
-  const [status, setStatus] = useState<"ready" | "inProgress" | "end">("ready");
+  const [status, setStatus] = useState<"ready" | "inProgress" | "end">('inProgress');
   const [answer, setAnswer] = useState("");
-  const [histories, setHistories] = useState<Params[]>([]);
+  const [histories, setHistories] = useState<Params[]>([{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'}]);
   const [loading, setLoading] = useState(false);
 
   const counselorMessage = useMemo(() => {
@@ -129,59 +130,52 @@ export default function Home() {
   },[histories, loading])
 
   return (
-    <div className="font-[family-name:var(--font-geist-sans)] h-full flex flex-col py-4">
-      {status === "ready" && (
-        <div className="flex flex-col items-center">
-          <p className="text-lg text-center">
-            🤗 당신이 오늘 집중해야 할 한 가지!<br/>
-            그게 무엇인지 함께 찾아봐요!
-          </p>
-          <button className="btn" onClick={onStartClick}>
-            시작하기
-          </button>
-          <p className="text-neutral-500">*성능 향상을 위해 질문과 답변 내용이 수집됩니다</p>
-        </div>
-      )}
-      {status === "inProgress" && (
-        <Fragment>
-          <div className="flex-1 overflow-y-auto">
-            <p>🙂 당신의 목표는 무엇인가요?</p>
-            {histories.map(({content, role}, index) => {
-              if(role === 'assistant'){
-                return (
-                  <p className="pr-4" key={index}>🙂 {content}</p>
-                )
-              }
-              return <div className="flex justify-end" key={index}><p className="bg-gray-100 px-4 rounded-lg">{content}</p></div>
-            })} 
-            {loading && <span className="ml-5 loading loading-dots"></span>}
-            <div ref={messageEndRef}></div>
-          </div>
-          {loading ? "😐" : "🤔"}
-          <div className="flex items-end gap-x-2">
-            <textarea
-              ref={textareaRef}
-              value={answer}
-              onChange={answerChangeHandler}
-              onKeyDown={onPressEnter}
-              maxLength={200}
-              className="textarea textarea-bordered w-full text-base"
-              placeholder="여기에 입력해주세요(200자 이내)"
-            />
-            <button onClick={onNextClick} className="btn btn-circle">
-              Enter
+    <>
+        {status === "ready" && (
+          <Ready onClick={onStartClick}/>
+        )}
+        {status === "inProgress" && (
+          <>
+            <div className="flex-1 overflow-y-auto">
+              <p>🙂 당신의 목표는 무엇인가요?</p>
+              {histories.map(({content, role}, index) => {
+                if(role === 'assistant'){
+                  return (
+                    <p className="pr-4" key={index}>🙂 {content}</p>
+                  )
+                }
+                return <div className="flex justify-end" key={index}><p className="bg-gray-100 px-4 rounded-lg">{content}</p></div>
+              })} 
+              {loading && <span className="ml-5 loading loading-dots"></span>}
+              <div ref={messageEndRef}></div>
+            </div>
+            <div className="flex bg-white flex-col sticky bottom-0">
+            {loading ? "😐" : "🤔"}
+            <div className="flex items-end gap-2 pb-4">
+              <textarea
+                ref={textareaRef}
+                value={answer}
+                onChange={answerChangeHandler}
+                onKeyDown={onPressEnter}
+                maxLength={200}
+                className="textarea textarea-bordered w-full text-base"
+                placeholder="여기에 입력해주세요(200자 이내)"
+              />
+              <button onClick={onNextClick} className="btn btn-circle">
+                Enter
+              </button>
+            </div>
+            </div>
+          </>
+        )}
+        {status === "end" && (
+          <div className="flex flex-col items-center">
+            <p>😊 {counselorMessage} 🥳</p>
+            <button onClick={onStartClick} className="btn">
+              다시하기
             </button>
           </div>
-        </Fragment>
-      )}
-      {status === "end" && (
-        <div className="flex flex-col items-center">
-          <p>😊 {counselorMessage} 🥳</p>
-          <button onClick={onStartClick} className="btn">
-            다시하기
-          </button>
-        </div>
-      )}
-    </div>
+        )}
+    </>
   );
 }
