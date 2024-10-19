@@ -29,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="prose mx-auto max-w-screen-md h-full flex flex-col">
+        <div className="prose mx-auto max-w-screen-md h-full min-h-screen flex flex-col">
           <header className="flex justify-between items-center border-b bg-white p-4 sticky top-0">
               <h2 className="m-0 text-base sm:text-2xl">지금 내가 집중해야 할 단 한 가지</h2>
               <InquiryButton />
