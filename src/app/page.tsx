@@ -16,9 +16,9 @@ import Ready from "./components/ready";
 export default function Home() {
   const messageEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null) 
-  const [status, setStatus] = useState<"ready" | "inProgress" | "end">('inProgress');
+  const [status, setStatus] = useState<"ready" | "inProgress" | "end">('ready');
   const [answer, setAnswer] = useState("");
-  const [histories, setHistories] = useState<Params[]>([{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'},{content:'abc', 'role':'user'},{content:'abc', 'role':'assistant'}]);
+  const [histories, setHistories] = useState<Params[]>([]);
   const [loading, setLoading] = useState(false);
 
   const counselorMessage = useMemo(() => {
